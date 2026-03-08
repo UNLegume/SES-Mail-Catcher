@@ -1,115 +1,115 @@
 # SES Mail Catcher
 
-SES 協業社からのメールを Gmail から自動検知し、Gemini 2.5 Flash を使用して SES 関連メールを分類、送信元アドレスとドメイン別の件数を Slack に通知するシステム。
+SES（システムエンジニアリングサービス）協業に向けた**初期アプローチメールを自動検知**し、未返信のものをSlackに通知するGoogle Apps Scriptシステム。
 
-## なぜ Google Apps Script (GAS) か
+## 概要
 
-| 項目 | GAS | Cloud Functions + Gmail API |
-|---|---|---|
-| Gmail アクセス | `GmailApp` でネイティブアクセス | サービスアカウント + Domain-Wide Delegation が必要 |
-| 認証設定 | 不要（スクリプト所有者の権限で動作） | OAuth2 / サービスアカウント JSON の管理が必要 |
-| デプロイ基盤 | 不要（GAS ランタイム上で動作） | Cloud Functions + Cloud Scheduler の構築が必要 |
-| 外部依存 | なし | Python パッケージ（google-auth, requests 等） |
-| コスト | 無料（Google Workspace の範囲内） | Cloud Functions / Scheduler / GCS の課金あり |
+finn株式会社のSES事業用メーリングリスト（service@finn.co.jp）に届くメールを Gemini AI で分析し、協業打診・面談提案・問い合わせ応答などの初期アプローチを検知します。未返信のメールがあればSlackに通知し、対応漏れを防ぎます。
+
+### 検知対象
+
+- 他社からのSES協業・パートナー契約・情報交換の申し入れ
+- finn側のHP・フォーム問い合わせに対する先方からの返信・面談提案
+- 初回の顔合わせ・協業検討を目的とした打ち合わせの提案（日程候補・予約リンク含む）
+
+### 検知対象外
+
+- 既存取引先との日常業務（案件紹介・要員提案・スキルシート等）
+- クラウドサービス通知、一般営業メール、ニュースレター
+- フォーム自動返信、社内メール
 
 ## アーキテクチャ
 
 ```
-[時間ベーストリガー (0:00 / 8:00 / 16:00)]
-        |
-        v
-    main() ── Script Properties から設定読み込み
-        |
-        v
-  searchEmails() ── GmailApp.search("after:YYYY/MM/DD")
-        |
-        v
-  classifyWithGemini() ── Gemini 2.5 Flash で SES 関連を判定
-        |
-        v
-  applyLabel() ── マッチしたスレッドにラベル付与
-        |
-        v
-  sendSlackNotification() ── UrlFetchApp で Slack Webhook に POST
+Gmail (_filtered/processed)
+    ↓  GAS時間トリガー (11:30 / 20:30 JST)
+getTargetMessages() ── Gmail REST API
+    ↓
+classifyEmailAsBP() ── Gemini 2.5 Flash (JSON応答)
+    ↓  is_bp: true & confidence ≥ 0.6
+hasCompanyReply() ── スレッド内の自社返信チェック
+    ↓  未返信のみ
+sendBPUnrepliedNotification() ── Slack Webhook
 ```
 
-## セットアップ手順
+### 上流システム
 
-### 1. GAS プロジェクトの作成
-
-1. [script.google.com](https://script.google.com/) にアクセス
-2. 「新しいプロジェクト」をクリック
-3. プロジェクト名を「SES Mail Catcher」に変更
-4. `src/main.gs` の内容をエディタに貼り付けて保存
-
-### 2. Script Properties の設定
-
-プロジェクト設定 > スクリプト プロパティ から以下を設定する。
-
-| プロパティ名 | 必須 | デフォルト値 | 説明 |
-|---|---|---|---|
-| `SLACK_WEBHOOK_URL` | Yes | - | Slack Incoming Webhook URL |
-| `GEMINI_API_KEY` | Yes | - | Google AI Studio API key ([こちら](https://aistudio.google.com/)から取得) |
-| `LABEL_NAME` | No | `SES案件` | マッチしたスレッドに付与するラベル名 |
-
-### 3. トリガーの設定
-
-1. GAS エディタで `setupTriggers` 関数を選択し、「実行」をクリック
-2. 権限の承認を行う
-3. GAS エディタ左メニューの「トリガー」(時計アイコン) で 3つのトリガー (0:00, 8:00, 16:00) が登録されていることを確認
-
-> トリガーを再設定したい場合は `setupTriggers` を再度実行するだけでよい（既存トリガーは自動削除される）。
-
-### 4. Slack Incoming Webhook の作成
-
-1. [Slack API](https://api.slack.com/apps) にアクセスし、新しい App を作成
-2. 「Incoming Webhooks」を有効化
-3. 「Add New Webhook to Workspace」で通知先チャンネルを選択
-4. 生成された Webhook URL を Script Properties の `SLACK_WEBHOOK_URL` に設定
-
-## ローカル開発 (clasp)
-
-[clasp](https://github.com/google/clasp) を使うことで、ローカル環境から GAS プロジェクトを管理できる。
-
-### 初期設定
-
-```bash
-# clasp のインストール
-npm install -g @google/clasp
-
-# Google アカウントでログイン
-clasp login
-
-# .clasp.json の scriptId を GAS プロジェクトの ID に更新
-# (GAS エディタの URL から取得: https://script.google.com/d/{SCRIPT_ID}/edit)
-```
-
-### 日常の操作
-
-```bash
-# ローカルのコードを GAS にプッシュ
-clasp push
-
-# GAS のコードをローカルにプル
-clasp pull
-
-# GAS エディタをブラウザで開く
-clasp open
-```
-
-## テスト
-
-GAS エディタで `main` 関数を選択し、「実行」ボタンをクリックする。
-実行ログは「実行数」メニューまたは `Logger.log()` の出力で確認できる。
+[gmail-spam-slayer](https://github.com/nobuhiro-nagata/gmail-spam-slayer)がスパムフィルタリング済みメールに`_filtered/processed`ラベルを付与。本システムはそのラベルを起点に動作します。
 
 ## ファイル構成
 
 ```
-SES-Mail-Catcher/
-├── src/
-│   └── main.gs           # GAS メインスクリプト
-├── appsscript.json        # GAS プロジェクト設定 (マニフェスト)
-├── .clasp.json            # clasp 設定 (スクリプトID)
-├── .gitignore
-└── README.md
+├── .clasp.json              # GASプロジェクトID・ルートディレクトリ設定
+├── eml/                     # テスト用サンプルメール（実メール5件）
+└── src/
+    ├── appsscript.json      # GASマニフェスト（タイムゾーン・OAuthスコープ）
+    ├── main.gs              # エントリポイント: processEmails, initialize, setupTriggers
+    ├── config.gs            # 設定定数・シークレット取得
+    ├── classifier.gs        # Gemini APIによるBP分類プロンプト・リトライロジック
+    ├── gmailClient.gs       # Gmail REST APIクライアント・ラベル管理
+    ├── slackNotifier.gs     # Slack Webhook通知
+    ├── utils.gs             # ユーティリティ（メール正規化・HTML除去・Base64デコード等）
+    └── test.gs              # ユニットテスト
 ```
+
+## セットアップ
+
+### 前提条件
+
+- [clasp](https://github.com/google/clasp) がインストール済み
+- Google AI Studio で Gemini API キーを取得済み
+- Slack Incoming Webhook URL を作成済み
+
+### 手順
+
+1. **claspでGASプロジェクトにリンク**
+   ```bash
+   clasp login
+   clasp push
+   ```
+
+2. **Script Properties を設定**（GASエディタ > プロジェクトの設定）
+   | プロパティ名 | 値 |
+   |---|---|
+   | `GEMINI_API_KEY` | Gemini APIキー |
+   | `SLACK_WEBHOOK_URL` | Slack Webhook URL |
+
+3. **初期化関数を実行**（GASエディタ）
+   ```
+   initialize()  → シークレット検証 & ラベル作成
+   setupTriggers()  → 日次トリガー設定 (11:30 / 20:30 JST)
+   ```
+
+## 設定値
+
+| 項目 | 値 | 説明 |
+|---|---|---|
+| `GEMINI_MODEL` | `gemini-2.5-flash` | 分類に使用するモデル |
+| `GEMINI_TEMPERATURE` | `0` | 決定論的応答 |
+| `BP_CONFIDENCE_THRESHOLD` | `0.6` | BP判定の閾値 |
+| `EMAIL_BODY_MAX_LENGTH` | `2000` | 本文の最大文字数（トークン制御） |
+| `API_RETRY_MAX` | `3` | APIリトライ回数（指数バックオフ） |
+| `MAX_EXECUTION_MS` | `300000` | 実行時間上限（5分、GAS制限6分に対するバッファ） |
+| `COMPANY_DOMAINS` | `finn.co.jp, ex.finn.co.jp` | 自社返信判定用ドメイン |
+
+## テスト
+
+GASエディタで `runAllTests()` を実行:
+
+```
+runAllTests()
+```
+
+Utils、GmailClient、Classifier、SlackNotifierの各モジュールのユニットテストが実行されます。
+
+## 処理の流れ
+
+1. **メール取得**: `_filtered/processed`ラベル付き & `_filtered/bp_unreplied`ラベルなし & 過去1日以内のメールを検索
+2. **AI分類**: Gemini APIで各メールを分析、`is_bp`（真偽値）・`confidence`（0.0〜1.0）・`reason`（判定理由）を返却
+3. **返信チェック**: BP判定されたメールのスレッドに自社ドメインからの返信があるか確認
+4. **ラベル付与**: 処理済みメールに`_filtered/bp_unreplied`ラベルを付与（再処理防止）
+5. **Slack通知**: 未返信BPメールがあれば送信元・件名をSlackに通知
+
+## ライセンス
+
+Private
