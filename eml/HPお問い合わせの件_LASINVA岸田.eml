@@ -1,0 +1,310 @@
+Delivered-To: nobuhiro-nagata.hojicha@finn.co.jp
+Received: by 2002:a05:6022:33a4:b0:f1:661d:547b with SMTP id bv36csp930260lab;
+        Thu, 5 Mar 2026 01:18:35 -0800 (PST)
+X-Forwarded-Encrypted: i=5; AJvYcCXWTBPYsniUXK/yTSn0F+TWjzssIzF79QqJ1UC4SOxQ1sVuguIgvgHgccCwt6vKHlqEkHaSN7Q6LTRmpa7JhHK70ncHTahThg==@finn.co.jp
+X-Received: by 2002:a17:90b:1dcf:b0:358:f0d0:1a19 with SMTP id 98e67ed59e1d1-359a69c384amr4605813a91.12.1772702314992;
+        Thu, 05 Mar 2026 01:18:34 -0800 (PST)
+ARC-Seal: i=4; a=rsa-sha256; t=1772702314; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=JG7ZVaKsHoLQu+CBJf2P+s4zxD5b5FKfDtiIPIYRivRn6Ax+TOs6bDQnFjVjZWiCI2
+         1kU4p5A39eGp1O+81uwem7AdN7BYFGIFmQ7wFgHc+fVB83UJwPTwFT/Z+8704hIsvMwR
+         P/gZ8RHzRMu/D2j4WazzfC9PUSEZoMgNHYo/yCWvUx5/inX+IvzHkMkpDUo270jFRS+n
+         YeBYosBbq9reBlMVRwTO9JW0HfhB0UYdmz4N0dqlaVccP9H0UhMe5FoT9f7MZB06t/O0
+         4ZOP8LYZlj96mojZ25NTyvOaj1UYcpPSls7l3J8HVubQc/3FDrQq1Vk8JGn0l29GZ579
+         +J9Q==
+ARC-Message-Signature: i=4; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        fh=mPP8/mdFoL8DaTUJSPgAULVqjM70ejQCBn3xP4lYbQw=;
+        b=HSQzSbqpZXrWE4JjwuGBUDgxPlceOfj/jfj8YozLsYzR+8Xsr006SCjQRARhGCWT6z
+         2OChyV5dnwc/jK5ske2EGyuNIs6ayqoBtVbh33+iuC6bDoq7PD9Kwzm2jfXNre3KzM94
+         HGSoPGj885dRcJXWq1rN4WxdafwoW8EvUqd/wSN73Lv3jlYT6yqcW95Aor4e5z0kIsFe
+         6E+r/1jljbLBLwsp7mj4/dIYoowLZLTbT3o6uXWTODD4+/2kun5XWSh9lL2drGVjtqGm
+         x2rTJaPe+oPojDrd+oGTAlkPI+rgcSCo1c6q1lAkMq/Ce784BDwgfWCYujIER1yKwzk3
+         LVbQ==;
+        dara=google.com
+ARC-Authentication-Results: i=4; mx.google.com;
+       dkim=pass header.i=@finn-co-jp.20230601.gappssmtp.com header.s=20230601 header.b="C4ky//hZ";
+       arc=pass (i=3 spf=pass spfdomain=lasinva.com dkim=pass dkdomain=lasinva.com);
+       spf=none (google.com: service+bncbcbnrup26mibb2uuuxgqmgqejs2h6bi@finn.co.jp does not designate permitted sender hosts) smtp.mailfrom=service+bncBCBNRUP26MIBB2UUUXGQMGQEJS2H6BI@finn.co.jp;
+       dara=neutral header.i=@finn.co.jp
+Return-Path: <service+bncBCBNRUP26MIBB2UUUXGQMGQEJS2H6BI@finn.co.jp>
+Received: from mail-pf1-x446.google.com (mail-pf1-x446.google.com. [2607:f8b0:4864:20::446])
+        by mx.google.com with ESMTPS id 98e67ed59e1d1-359b2d402edsi2092692a91.3.2026.03.05.01.18.34
+        for <nobuhiro-nagata.hojicha@finn.co.jp>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Mar 2026 01:18:34 -0800 (PST)
+Received-SPF: none (google.com: service+bncbcbnrup26mibb2uuuxgqmgqejs2h6bi@finn.co.jp does not designate permitted sender hosts) client-ip=2607:f8b0:4864:20::446;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@finn-co-jp.20230601.gappssmtp.com header.s=20230601 header.b="C4ky//hZ";
+       arc=pass (i=3 spf=pass spfdomain=lasinva.com dkim=pass dkdomain=lasinva.com);
+       spf=none (google.com: service+bncbcbnrup26mibb2uuuxgqmgqejs2h6bi@finn.co.jp does not designate permitted sender hosts) smtp.mailfrom=service+bncBCBNRUP26MIBB2UUUXGQMGQEJS2H6BI@finn.co.jp;
+       dara=neutral header.i=@finn.co.jp
+Received: by mail-pf1-x446.google.com with SMTP id d2e1a72fcca58-824a2df507esf22593272b3a.2
+        for <nobuhiro-nagata.hojicha@finn.co.jp>; Thu, 05 Mar 2026 01:18:34 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1772702314; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=Ed4QSzTulJsw86ipdHsO17jyKEg3/gLBPrkDfgmESNlTVWZd3seTl7kcpfGevksQAU
+         Oki5Dfk8vbI5tex672gxjmRZiW+sL9aDDNYMLDFXpE09iN0nCgnYACbYHYQkmMVWEE7z
+         Ix1L0j0GZ6OR9JwpH9aYDQzyDbbvJRy18grXmb1XzXZ0Q32KkKMEcwQHkLTVsGY8wtT5
+         tQK1mXUvGxXwTXi4+WO6aiDf2PI60rgO754K3zk8K7uOfKt/Le+o/xQxBHUIxPHx2aP0
+         +l+9t3DvH7XoiYQxclNENPBryImEXgf8+8C3mQzXmUz0Pc82Ys4HdteMJ5VW2y1OYpm4
+         XNhA==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        fh=mPP8/mdFoL8DaTUJSPgAULVqjM70ejQCBn3xP4lYbQw=;
+        b=DyFLSng5TlAewF40Q+7EATJY2SShVEFHzrQr4dfaeXuIqZaZbTXbGdn6QpRuS9YyUi
+         cKMniR880a7HvPGWxE44lJUIIOxrsDJj//hAhy3V9rRfPUMBhgFPubusN4ytipJ92qsL
+         /FFgHdxp1/V3ByJYu35iR9v+ElxH1XN+Y9rxualoAnrqW8UcZ4/5/h56A+i3w+tPYkX5
+         j6tzt7BSy+lpXvCLBom8R+M3bEzSB1Vsw2S3CckW+tjjP3yqWCIGrt78S6294kVahKUE
+         D6x1Wt7d363CHKODL3r8zI6/BdbsdmTd05dz2fmDf3mwKvxlMBwHjJ8ke7TpmDr8VPxr
+         8atQ==;
+        darn=finn.co.jp
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@lasinva.com header.s=google header.b=q6P1+EpG;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of miyuki.kishida@lasinva.com designates 223.27.119.28 as permitted sender) smtp.mailfrom=miyuki.kishida@lasinva.com;
+       dara=neutral header.i=@finn.co.jp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=finn-co-jp.20230601.gappssmtp.com; s=20230601; t=1772702314; x=1773307114; darn=finn.co.jp;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:cc:to:subject:message-id:date:from:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        b=C4ky//hZCrt3h8ZfwnWsjX2l36xWYCfqB9xPW08MTFQrMPqi3LFSVrgpf8O9RaN06T
+         a9I8udQP/OUWjc6aKKeWGyvSJc2vfgyIwOXTv9z0D5g5K3MAuisMPegk/T8X79YTHxQY
+         58uOG1s19Rb8i24zoYBbjz6pT0XFOVhObwjecEPxVIS4CSUmJ9hnV/tMl4+jdekrrlHq
+         wPje+O7S5WEdLWTD/LZXLGlbNxFyV3WLtY4XxQSPSny06vPtHKcqXWbQsWMOgGnj87At
+         bDoXGXCasKF8xI+mqhvwg80obnJrt7Stjgeg8YBtHRejbbZR36LIiMXRxU4+XvqOlboE
+         ZtLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772702314; x=1773307114;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-authentication-results:x-original-sender:cc:to:subject
+         :message-id:date:from:mime-version:x-gm-gg:x-beenthere
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        b=Le2XEmeZWYbvLEoW4vx7S0oqlj2S8d0/1kgqe1oXJouRV2ags5mUUl9S116LkEXnVR
+         0ZoVABa3xW1Xz5poSf1PA9otDKeB+bQmNMrMfTpk8iH8iIrzRG5LgpCg1N7dBGtaUyX8
+         dkSsLkSbPy18stArnarurVG3/Y1bzQOTfwGbuq/IkHbU3WdFMfgJ0Xa8Nz9bflNbVjz/
+         1Zyt5gOewq9XJGaQn0XtPMMSQdDDHmwO4qLs17/r6BbTPgyPdIMEnvvmh3neWHutlqc3
+         HGoXRati8DrodZzOHyNWVwPUa4CWUY64gDPpYWJmJTzcHV+stgAPGNaokCKzNGqiuFNh
+         mF9A==
+X-Forwarded-Encrypted: i=3; AJvYcCWModuE9Qj4LWZsjD+M0brs2nnIPztof4hIiGf4642eaqKFaaZFqcBtQXhvGaq0E6iFDxTVMIj4I+RRl99s3qOx9dNB+5UbyQ==@finn.co.jp
+X-Gm-Message-State: AOJu0YxJHKysXXrGOdu4jHpZ4SVqSkIGNYse/I1MiIyLjUREYAYQHG7v
+	OsdJzX4zDVn3ROO5Jd1uWu5cHzFyU/avoSsQWNVcHjFPo6ee3kG3FwC1xEyAIsK/xAecDAiK+/Z
+	hQw==
+X-Received: by 2002:a05:6a00:4acc:b0:81f:9bc0:e45e with SMTP id d2e1a72fcca58-82972d09d20mr4398829b3a.65.1772702314300;
+        Thu, 05 Mar 2026 01:18:34 -0800 (PST)
+X-BeenThere: service@finn.co.jp; h="AV1CL+Hg7+kLN7286eJM0SnE+MdjNLql2959uuO6dH3+Lp2O+Q=="
+Received: by 2002:a05:6a00:4c:b0:7a6:a380:fc79 with SMTP id
+ d2e1a72fcca58-82980caaf8cls614747b3a.1.-pod-prod-06-us; Thu, 05 Mar 2026
+ 01:18:33 -0800 (PST)
+X-Received: by 2002:a05:6a00:9283:b0:829:883c:1d53 with SMTP id d2e1a72fcca58-829883c219amr1450712b3a.31.1772702313217;
+        Thu, 05 Mar 2026 01:18:33 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1772702313; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=FbbwRTfW16qGPyKih4JPwGpy+544VW+WhbGZpAoGJ1jzvQKTewRT3nOsVK+pDHzr4Z
+         Q3klZldrD3iRUy2Zf70cpuz4BmSBw5moN7fW+3KmpAkAoLuhMzooyS+KbTQGPPDHqQrZ
+         2c3xRzufUE1Sy0Er8N0B/6gxqXEgXU1Y3JFkvPJAp90zpe9Bp3YeSSPjgY+j8QDByt11
+         YsN8NvmZkzY+otc7TwTzFE5SpNG89m7d5TalNGiybt1iV8CDY45NEB+8QqdTo7frqvbx
+         tWCIrcLVue0tjKQLGaDLmynL/xWv3lCzB1TU1MllYAQ6d05NxcAaBkZdlcaoLCylcLha
+         sWBQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        fh=cc2zxZTzhwUiNS8R4lxDXxnMMf7tvQeeNKPG6PymDEo=;
+        b=k5BrmfjAHvCS4805kIDbS6dPi9K4ux7KyOyKq3V3TgwK6qejHXwnfXlEbUtamBfEy6
+         oZOKf87ap8uxMED607q4nIM9T0cEkThKVPypkTTmOFtQEtPIsNXSAubYXdC8lO7qbAFa
+         SvdifrQMHgA+G2dM9ODts9T12NZgDoUCv7C8gkqvvG4WCsV7llRdRS87GF0yAVaEd70o
+         6KEEAptPKkWMtCEQ7St3FTjknUd0ICH/PA3A68HcbrfbEXiIWIQ48d/VRrXTr34jV+Df
+         i8x+yuatc6sv7zDHkclN1J3x/NHiAze6EuysSK8l0SHVTNltZTskNoLGzSUu0CfBSf0G
+         IgPA==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@lasinva.com header.s=google header.b=q6P1+EpG;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of miyuki.kishida@lasinva.com designates 223.27.119.28 as permitted sender) smtp.mailfrom=miyuki.kishida@lasinva.com;
+       dara=neutral header.i=@finn.co.jp
+Received: from ss11.activegate-ss.jp (ss11.activegate-ss.jp. [223.27.119.28])
+        by mx.google.com with ESMTPS id d2e1a72fcca58-829880a7a4bsi2164410b3a.63.2026.03.05.01.18.32
+        for <service@finn.co.jp>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Mar 2026 01:18:33 -0800 (PST)
+Received-SPF: pass (google.com: domain of miyuki.kishida@lasinva.com designates 223.27.119.28 as permitted sender) client-ip=223.27.119.28;
+Received: from mail.d.activegate-ss.jp (unknown [10.16.39.40]) (envelope sender: <miyuki.kishida@lasinva.com>)
+	(not using TLS) by ss11.activegate-ss.jp (Active!gate) with ESMTP id FSRz02382B;
+	Thu,  5 Mar 2026 18:17:53 +0900
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-48372facfedso67598475e9.0;
+        Thu, 05 Mar 2026 01:17:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772702271; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WZjy/v/HiJKchGxa+p2zK38H/NyOex8d/ZU/K45Bm2xioDbHZ+7wkzLMkaCB6mvXJ1
+         KtYlle43+1/xYa+MzWLqhw1sZihv0ggI3+hiOIWRis1AMKaJscbE5lTfDWFzqZl4FgF5
+         jJ869Ex5AqHww2+vGmnPNIt72URv1M7OR6LQb7dZ8GcJV09EtmTXAy7gzDeXHDc+gEgU
+         1ceevyJlZLOId0ePNaEte1f8iohh4zTdg2wSUSKCjtZl67BVQZghCcZ8qcEspmnFGjrf
+         q3rNqEjqVdMnwW+W5TYp4DP8QpCdwJbynhOChyJZrRqldpUjNik3uh2Bzy0woemMymXX
+         Ykdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=G/UdqSYfgbeEM26fRzghQvw3sjFOieKVh4pbcvsM9dQ=;
+        fh=cc2zxZTzhwUiNS8R4lxDXxnMMf7tvQeeNKPG6PymDEo=;
+        b=IN0f+VBk2Kwhepssln/ZCLU8kU0TRa/n860N6iIhcKwJeWmzSpMCWinJkqkPrpo//n
+         WhqzjCAQe+zL7PPibJqPjWPxtm+Ic7ukjbj7/pv5Bsaq8pDgVq3XJnvw5alu02bKsqwN
+         gyoxEpzM9gmlvl9/802xTwF11lstpkWJXPR233ALlY+GOUUfSzJAGIupYtLiAA1vxgAC
+         q7tEgv73LuAYgD/E+SsgTCiGJ9Zolxz8kixcNAESGNgP3fjUTyxq8X0KZWL58UKUaeKW
+         WidkstmyWP9cqgzKsSnEYDuA9uc04ZDuS1XGAUc1o3p8kwQ1rcPerpDnLc2RcIyZv43t
+         snRQ==;
+        darn=finn.co.jp
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Gm-Gg: ATEYQzxSal1YZZ0f7nnn/CshZohCMNS5rAnHf29fXnmGZGhUsv8qMQSQ8qvcolTKrJG
+	ywQxfwcbxAP4sexrskFJT9l6XwIOJDiwFDlHgrD4G0TMD6oHTfF6g2N/LANzdFjLMNXdt6eELo/
+	frxX7fkL8VdIKGpebBe5jVo2lDFRRayMW7Bfj1avsUa0AWrWM3XlGFWwmp7ota2qsDI/VhxUS9m
+	Y3+6dS43MN/H/YyZIruaqwoeeDeM7E0DAghXA==
+X-Received: by 2002:a05:600c:620a:b0:477:9890:9ab8 with SMTP id 5b1f17b1804b1-4851ee7b0cdmr23967835e9.3.1772702270589;
+        Thu, 05 Mar 2026 01:17:50 -0800 (PST)
+X-Received: by 2002:a05:600c:620a:b0:477:9890:9ab8 with SMTP id
+ 5b1f17b1804b1-4851ee7b0cdmr23967385e9.3.1772702269973; Thu, 05 Mar 2026
+ 01:17:49 -0800 (PST)
+MIME-Version: 1.0
+From: =?UTF-8?B?5bK455Sw576O5bm4?= <miyuki.kishida@lasinva.com>
+Date: Thu, 5 Mar 2026 18:17:32 +0900
+X-Gm-Features: AaiRm52b6o4bkUf9ts74d6Pm4BuyWJNVrj6Xvaqfu8Ec6TFBHhOeG5z-KthdB-o
+Message-ID: <CAOULSF7aDdsgwcQ7DKRArAvz9KBQdC9ormAxu_XKKB9H9N4zPg@mail.gmail.com>
+Subject: =?UTF-8?B?SFDjgYrllY/jgYTlkIjjgo/jgZvjga7ku7YvTEFTSU5WQeWyuOeUsA==?=
+To: service@finn.co.jp
+Cc: =?UTF-8?B?5YaF55Sw5riF6ZqG?= <seiryu.uchida@lasinva.com>, 
+	LASINVA sales <sales@lasinva.com>
+Content-Type: multipart/alternative; boundary="0000000000001833c7064c43692c"
+X-Original-Sender: miyuki.kishida@lasinva.com
+X-Original-Authentication-Results: mx.google.com;       dkim=pass
+ header.i=@lasinva.com header.s=google header.b=q6P1+EpG;       arc=pass
+ (i=1);       spf=pass (google.com: domain of miyuki.kishida@lasinva.com
+ designates 223.27.119.28 as permitted sender) smtp.mailfrom=miyuki.kishida@lasinva.com;
+       dara=neutral header.i=@finn.co.jp
+Precedence: list
+Mailing-list: list service@finn.co.jp; contact service+owners@finn.co.jp
+List-ID: <service.finn.co.jp>
+X-Spam-Checked-In-Group: service@finn.co.jp
+X-Google-Group-Id: 782758403112
+List-Post: <https://groups.google.com/a/finn.co.jp/group/service/post>, <mailto:service@finn.co.jp>
+List-Help: <https://support.google.com/a/finn.co.jp/bin/topic.py?topic=25838>, <mailto:service+help@finn.co.jp>
+List-Archive: <https://groups.google.com/a/finn.co.jp/group/service/>
+List-Subscribe: <https://groups.google.com/a/finn.co.jp/group/service/subscribe>,
+ <mailto:service+subscribe@finn.co.jp>
+List-Unsubscribe: <mailto:googlegroups-manage+782758403112+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/a/finn.co.jp/group/service/subscribe>
+
+--0000000000001833c7064c43692c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+5qCq5byP5Lya56S+Zmlubg0K5LmF6YeO5qeYDQoNCuOBiuS4luipseOBq+OBquOBo+OBpuOBiuOC
+iuOBvuOBmeOAgg0KTEFTSU5WQeOBruWyuOeUsOOBqOeUs+OBl+OBvuOBmeOAgg0KDQrjgZPjga7l
+uqbjga9IUOOCiOOCiuOBiuWVj+OBhOWQiOOCj+OBm+mgguOBjeiqoOOBq+OBguOCiuOBjOOBqOOB
+huOBlOOBluOBhOOBvuOBmeOAgg0K5piv6Z2e44GU6Z2i6KuH44Gu5qmf5Lya44KS6aCC44GN44Gf
+44GP44CB5LiL6KiY44KI44KK44GU6YO95ZCI44Gu44KI44GE5pel56iL44KS44GU6YG45oqe6aCC
+44GR44G+44GZ44Go5bm444GE44Gn44GZ44CCDQoNCuOAkCBodHRwczovL3RpbWVyZXgubmV0L3Mv
+c2Vpcnl1LnVjaGlkYV82ZjhmLzdkZWZmODFjIOOAkQ0K4oC744Kq44Oz44Op44Kk44Oz44Gr44Gm
+MzDliIbplpPjgpLmg7PlrprjgZfjgabjgYrjgorjgb7jgZkNCg0K44GK5omL5pWw44KS44GK44GL
+44GR44GX44G+44GZ44GM44CB44GU56K66KqN44Gu56iL44KI44KN44GX44GP44GK6aGY44GE44GE
+44Gf44GX44G+44GZ44CCDQoNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQog5qCq5byP5Lya56S+IExBU0lOVkENCiDl
+srjnlLAg576O5bm4IC8gS2lzaGlkYSBNaXl1a2kNCiDjgJIxMDYtMDAzMg0KIOadseS6rOmDvea4
+r+WMuuWFreacrOacqDbkuIHnm64yLTUgQml6ZmxleOWFreacrOacqDNGDQogRS1tYWls77yabWl5
+dWtpLmtpc2hpZGFAbGFzaW52YS5jb20NClRFTO+8mjA4MC01OTAxLTk5NzANCiBIUO+8mmh0dHBz
+Oi8vbGFzaW52YS5jb20vDQpMaW5rZWRpbu+8mmh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS9jb21w
+YW55L2xhc2ludmENCllvdXR1YmXvvJpodHRwczovL3d3dy55b3V0dWJlLmNvbS9ATEFTSU5WQS1j
+aGFubmVsL3ZpZGVvcw0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0K
+--0000000000001833c7064c43692c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=
+=3D"ltr"><div><pre>=E6=A0=AA=E5=BC=8F=E4=BC=9A=E7=A4=BEfinn<br>=E4=B9=85=E9=
+=87=8E=E6=A7=98<br><br>=E3=81=8A=E4=B8=96=E8=A9=B1=E3=81=AB=E3=81=AA=E3=81=
+=A3=E3=81=A6=E3=81=8A=E3=82=8A=E3=81=BE=E3=81=99=E3=80=82<br>LASINVA=E3=81=
+=AE=E5=B2=B8=E7=94=B0=E3=81=A8=E7=94=B3=E3=81=97=E3=81=BE=E3=81=99=E3=80=82=
+<br><br>=E3=81=93=E3=81=AE=E5=BA=A6=E3=81=AFHP=E3=82=88=E3=82=8A=E3=81=8A=
+=E5=95=8F=E3=81=84=E5=90=88=E3=82=8F=E3=81=9B=E9=A0=82=E3=81=8D=E8=AA=A0=E3=
+=81=AB=E3=81=82=E3=82=8A=E3=81=8C=E3=81=A8=E3=81=86=E3=81=94=E3=81=96=E3=81=
+=84=E3=81=BE=E3=81=99=E3=80=82<br>=E6=98=AF=E9=9D=9E=E3=81=94=E9=9D=A2=E8=
+=AB=87=E3=81=AE=E6=A9=9F=E4=BC=9A=E3=82=92=E9=A0=82=E3=81=8D=E3=81=9F=E3=81=
+=8F=E3=80=81=E4=B8=8B=E8=A8=98=E3=82=88=E3=82=8A=E3=81=94=E9=83=BD=E5=90=88=
+=E3=81=AE=E3=82=88=E3=81=84=E6=97=A5=E7=A8=8B=E3=82=92=E3=81=94=E9=81=B8=E6=
+=8A=9E=E9=A0=82=E3=81=91=E3=81=BE=E3=81=99=E3=81=A8=E5=B9=B8=E3=81=84=E3=81=
+=A7=E3=81=99=E3=80=82<br><br>=E3=80=90 <a href=3D"https://timerex.net/s/sei=
+ryu.uchida_6f8f/7deff81c" target=3D"_blank">https://timerex.net/s/seiryu.uc=
+hida_6f8f/7deff81c</a> =E3=80=91<br>=E2=80=BB=E3=82=AA=E3=83=B3=E3=83=A9=E3=
+=82=A4=E3=83=B3=E3=81=AB=E3=81=A630=E5=88=86=E9=96=93=E3=82=92=E6=83=B3=E5=
+=AE=9A=E3=81=97=E3=81=A6=E3=81=8A=E3=82=8A=E3=81=BE=E3=81=99<br><br>=E3=81=
+=8A=E6=89=8B=E6=95=B0=E3=82=92=E3=81=8A=E3=81=8B=E3=81=91=E3=81=97=E3=81=BE=
+=E3=81=99=E3=81=8C=E3=80=81=E3=81=94=E7=A2=BA=E8=AA=8D=E3=81=AE=E7=A8=8B=E3=
+=82=88=E3=82=8D=E3=81=97=E3=81=8F=E3=81=8A=E9=A1=98=E3=81=84=E3=81=84=E3=81=
+=9F=E3=81=97=E3=81=BE=E3=81=99=E3=80=82</pre></div><div><div dir=3D"ltr" cl=
+ass=3D"gmail_signature"><div dir=3D"ltr"><div style=3D"margin:0px;min-width=
+:0px;padding:0px 0px 20px;width:auto;font-family:&quot;Google Sans&quot;,Ro=
+boto,RobotoDraft,Helvetica,Arial,sans-serif"><div><div style=3D"margin:8px =
+0px 0px;padding:0px;overflow-x:hidden"><div><div dir=3D"ltr"><div dir=3D"lt=
+r"><div dir=3D"ltr"><div><br></div></div></div></div></div></div></div></di=
+v></div></div></div></div></div></div></div><div><div dir=3D"ltr" class=3D"=
+gmail_signature"><div dir=3D"ltr"><div style=3D"margin:0px;min-width:0px;pa=
+dding:0px 0px 20px;width:auto;font-family:&quot;Google Sans&quot;,Roboto,Ro=
+botoDraft,Helvetica,Arial,sans-serif"><div><div style=3D"margin:8px 0px 0px=
+;padding:0px;overflow-x:hidden"><div><div style=3D"font-size:medium"></div>=
+<div style=3D"font-size:medium"></div></div></div><div style=3D"font-size:m=
+edium"></div></div></div></div></div></div></div><br clear=3D"all"></div><d=
+iv><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signa=
+ture"><div dir=3D"ltr"><div style=3D"margin:0px;min-width:0px;padding:0px 0=
+px 20px;width:auto"><div><div style=3D"margin:8px 0px 0px;padding:0px;overf=
+low-x:hidden"><div><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div =
+style=3D"color:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Roboto,Rob=
+otoDraft,Helvetica,Arial,sans-serif"><span style=3D"color:rgb(0,0,0);font-f=
+amily:arial,sans-serif">---------------------------------------------------=
+-------------</span><font face=3D"arial, sans-serif"><br><font color=3D"#00=
+0000">=C2=A0=E6=A0=AA=E5=BC=8F=E4=BC=9A=E7=A4=BE LASINVA</font><br><font co=
+lor=3D"#000000">=C2=A0=E5=B2=B8=E7=94=B0=E3=80=80=E7=BE=8E=E5=B9=B8 / Kishi=
+da Miyuki</font></font><font face=3D"arial, sans-serif"><br><div>=C2=A0=E3=
+=80=92106-0032</div><div>=C2=A0=E6=9D=B1=E4=BA=AC=E9=83=BD=E6=B8=AF=E5=8C=
+=BA=E5=85=AD=E6=9C=AC=E6=9C=A86=E4=B8=81=E7=9B=AE2-5 Bizflex=E5=85=AD=E6=9C=
+=AC=E6=9C=A83F</div></font></div><div style=3D"color:rgb(34,34,34);font-fam=
+ily:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif">=
+<font face=3D"arial, sans-serif"><font color=3D"#000000">=C2=A0E-mail=EF=BC=
+=9A</font></font><font color=3D"#000000" face=3D"arial, sans-serif"><a href=
+=3D"mailto:miyuki.kishida@lasinva.com" target=3D"_blank">miyuki.kishida@las=
+inva.com</a><br>TEL=EF=BC=9A080-5901-9970</font></div><div><font face=3D"ar=
+ial, sans-serif"><font color=3D"#000000" style=3D"color:rgb(34,34,34);font-=
+family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,sans-seri=
+f">=C2=A0HP</font><font color=3D"#500050" style=3D"color:rgb(34,34,34);font=
+-family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,sans-ser=
+if">=EF=BC=9A</font><a href=3D"https://lasinva.com/" style=3D"color:rgb(0,0=
+,0);font-family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,=
+sans-serif" target=3D"_blank">https://lasinva.com/</a><br><div><font color=
+=3D"#000000">Linkedin=EF=BC=9A<a href=3D"https://www.linkedin.com/company/l=
+asinva" target=3D"_blank">https://www.linkedin.com/company/lasinva</a></fon=
+t></div><div><font color=3D"#000000">Youtube=EF=BC=9A<a href=3D"https://www=
+.youtube.com/@LASINVA-channel/videos" target=3D"_blank">https://www.youtube=
+.com/@LASINVA-channel/videos</a></font></div></font></div><div style=3D"col=
+or:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Hel=
+vetica,Arial,sans-serif"><font color=3D"#000000" face=3D"arial, sans-serif"=
+>----------------------------------------------------------------</font></d=
+iv><div style=3D"color:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Ro=
+boto,RobotoDraft,Helvetica,Arial,sans-serif;font-size:medium"><font color=
+=3D"#000000" face=3D"arial, sans-serif"><br></font></div></div></div></div>=
+<div style=3D"color:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Robot=
+o,RobotoDraft,Helvetica,Arial,sans-serif;font-size:medium"></div><div style=
+=3D"color:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Roboto,RobotoDr=
+aft,Helvetica,Arial,sans-serif;font-size:medium"></div></div></div><div sty=
+le=3D"color:rgb(34,34,34);font-family:&quot;Google Sans&quot;,Roboto,Roboto=
+Draft,Helvetica,Arial,sans-serif;font-size:medium"></div></div></div></div>=
+</div></div></div>
+
+--0000000000001833c7064c43692c--

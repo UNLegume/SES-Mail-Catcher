@@ -1,0 +1,316 @@
+Delivered-To: nobuhiro-nagata.hojicha@finn.co.jp
+Received: by 2002:a05:6022:33a4:b0:f1:661d:547b with SMTP id bv36csp886944lab;
+        Wed, 4 Mar 2026 23:54:53 -0800 (PST)
+X-Forwarded-Encrypted: i=4; AJvYcCWa+rb3N8tgwQu8sKk2Ume8OtHaFRJJjKiHqAVKKzSHiiuAailFIvh5JldYPWXF3sPkY7aZv/tX+ONdmzKMe2VleIzDwQghkg==@finn.co.jp
+X-Received: by 2002:a05:7022:619e:b0:127:c88:d597 with SMTP id a92af1059eb24-128b7094867mr2259346c88.10.1772697292674;
+        Wed, 04 Mar 2026 23:54:52 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1772697292; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=YK26wZy20Q6CxUMW5PzuH7b2X8m5oE5QtowSjZyH4ih/3b1Fmg+chDzDqZvnO1CHFR
+         oB8gRqdS+R42WWE5yVVoN06uHU0Uy1LB3UG2oooDZDVzkJFeN9fmKsSUv7p/1IfCgHi3
+         j5c0/00XGYDCUlr2muON8jBm1zhp/8kRduS+3QT8wy3nA/Zzgst2fV0M3x2pJPpi7oKf
+         y06wxa+R/LfZ3o0EpqnLSadip7nk8v+W0PH9NaFCHck7VBtwebFelPu+joa5SbuH8jYS
+         eUKAwJvQirW3H5FISkgRCoyNGyZIbnBQASXj7BKXogvc93/txhKkAmfsKFjvq7nsuNsC
+         JFaQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:references:to:cc:in-reply-to:date
+         :subject:mime-version:message-id:from:dkim-signature;
+        bh=4BLSpuuq/cPYyjlXgfx00tl4rzEI9eXg7RWNA9rlxCc=;
+        fh=BD1pp/qEA7Ifd16PXatigq3/OPgq9fqVais36UYRfc0=;
+        b=dYTYr9aZLxgW9im19Ha05Na9OGB1poZpdGeFBpSVd4wgKY/h000xWOwYQa9GTjczzI
+         bWsVnCmHuEHzXurCvbBPNTq0/+A9cWF4WhhVLkrUa0uf0XbKDHs2sSM9HTtSrzOU1B4m
+         DOLT0eWl7KqOpyixCF6ROfBSGfQZT4MRfOSbAZFLe7FTB7MG9l7DwkGAhvFvHKQ3w0fc
+         Y1v5xXEIousExS3c2Q3Pdg+ixyGJF3cqcTc+Z21wmN9keObo3er/EecxWxoowKhGRQua
+         2ch9pL0IXSM9RCOQwonN0hxNo3tX6uAsamLeHHQ4+fzrorkY32hh1WGPUQzebXjg6R/g
+         gxVg==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@finn-co-jp.20230601.gappssmtp.com header.s=20230601 header.b=AA8YLxtN;
+       arc=pass (i=2 spf=pass spfdomain=accerise.co.jp dkim=pass dkdomain=accerise.co.jp dmarc=pass fromdomain=accerise.co.jp);
+       spf=none (google.com: service+bncbc7nbl4azimrbs7nutgqmgqeitobqli@finn.co.jp does not designate permitted sender hosts) smtp.mailfrom=service+bncBC7NBL4AZIMRBS7NUTGQMGQEITOBQLI@finn.co.jp;
+       dmarc=fail (p=NONE sp=NONE dis=NONE arc=pass) header.from=accerise.co.jp;
+       dara=fail header.i=@finn.co.jp
+Return-Path: <service+bncBC7NBL4AZIMRBS7NUTGQMGQEITOBQLI@finn.co.jp>
+Received: from mail-pg1-x547.google.com (mail-pg1-x547.google.com. [2607:f8b0:4864:20::547])
+        by mx.google.com with ESMTPS id a92af1059eb24-12789b74062si52236935c88.58.2026.03.04.23.54.52
+        for <nobuhiro-nagata.hojicha@finn.co.jp>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Mar 2026 23:54:52 -0800 (PST)
+Received-SPF: none (google.com: service+bncbc7nbl4azimrbs7nutgqmgqeitobqli@finn.co.jp does not designate permitted sender hosts) client-ip=2607:f8b0:4864:20::547;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@finn-co-jp.20230601.gappssmtp.com header.s=20230601 header.b=AA8YLxtN;
+       arc=pass (i=2 spf=pass spfdomain=accerise.co.jp dkim=pass dkdomain=accerise.co.jp dmarc=pass fromdomain=accerise.co.jp);
+       spf=none (google.com: service+bncbc7nbl4azimrbs7nutgqmgqeitobqli@finn.co.jp does not designate permitted sender hosts) smtp.mailfrom=service+bncBC7NBL4AZIMRBS7NUTGQMGQEITOBQLI@finn.co.jp;
+       dmarc=fail (p=NONE sp=NONE dis=NONE arc=pass) header.from=accerise.co.jp;
+       dara=fail header.i=@finn.co.jp
+Received: by mail-pg1-x547.google.com with SMTP id 41be03b00d2f7-c737882b2easf931926a12.0
+        for <nobuhiro-nagata.hojicha@finn.co.jp>; Wed, 04 Mar 2026 23:54:52 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1772697292; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=lAhRHwcOi9bWUio9YEiR3RfA5NfRdtKwto9VAmYvCOU45xIFQfPFngHrrvNeryFAVS
+         kmNbF/mgGQRlWrik1OvrzChFCBCCcldms95R5A1+8RB2sbqI+FgDOB+oluNSUE1lQMpO
+         ymS9dQcljNbMZCW1SVRH0POP7fRpinXsfN1pJkUyKL2EY7QWd3/K71+FIyysKtBZZYDh
+         0tRGmuNRw/Ixq1uqB/rwW6iK68tzTXWpOyw5PUAchTNMf8ILGXA+MPP5tk/eQ3G7To4K
+         vZAVcFQR8czUZuoFeiI115Aq/LfZ0OL7RkIIMqIDoyqGs2fL4LCsCqFkn3w70ceLLWMU
+         5cuA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:references:to:cc:in-reply-to:date
+         :subject:mime-version:message-id:from:dkim-signature;
+        bh=4BLSpuuq/cPYyjlXgfx00tl4rzEI9eXg7RWNA9rlxCc=;
+        fh=BD1pp/qEA7Ifd16PXatigq3/OPgq9fqVais36UYRfc0=;
+        b=kghAIRLQRYIhFs+abiSzIm6C6m+ehqzkah5ZLxxdyHUUj5xjBcvskuE0S7hWYqreSE
+         qcTUU3hISUZUYESuELWQT1wrfIPA+I4YtiIcetU24FoqyDxTE8pQ09ELhOeUg+KyMIRr
+         DVcF55wOmcM4tPHJS/IOVy/w6Z8NyGqgaUslVpxBWQFfWrhnKMqceiTLrlX/OZhusP0B
+         4yX1Ni7WETTi87fqK8z04Q6XIcQIpOC2B5MPP2DBAx4nXTHp+wj+LKWSb5Od1KbS75/2
+         B7KVcEIzRBaA03m0XkCwBor9pAmslBTvntZF3fOIjOIfRXQWL8fXB5JGv/qubNdDQFFr
+         IZhQ==;
+        darn=finn.co.jp
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@accerise.co.jp header.s=google header.b=VCUwKyLO;
+       spf=pass (google.com: domain of takayuki.koike@accerise.co.jp designates 2607:f8b0:4864:20::52e as permitted sender) smtp.mailfrom=takayuki.koike@accerise.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=accerise.co.jp;
+       dara=neutral header.i=@finn.co.jp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=finn-co-jp.20230601.gappssmtp.com; s=20230601; t=1772697292; x=1773302092; darn=finn.co.jp;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:references:to:cc:in-reply-to:date:subject
+         :mime-version:message-id:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4BLSpuuq/cPYyjlXgfx00tl4rzEI9eXg7RWNA9rlxCc=;
+        b=AA8YLxtNJpOKRyXZZYx43hX+pzBsqqJPLVLYGJlgb4uCf642M/C6/IznKOJVFvX8Jq
+         FwLsWXe5iZuSr55qNbYt6lI9iMkinZL060+9uEdU9xyIueVAYgQMinmAhoGFn+nSnBZc
+         wySVrmU1E+0NlMkT3eW1ADAPDm/xt/ZXOXi7hsMVOBrOuen8ys/7Lvz2NlaUW8613oDE
+         /aR73oQ5PAxtSgGyy69NZBndXH+JoljIZgPir5seWh9WeJZjvpHI8PDFfJgOON1ywlra
+         C91oM0KORAeNtTAP4y72DGn0id+2XEnxgd9Ss5ivKI+IVWKdzC4YV7eKvr+aeXSQVnkS
+         6HdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772697292; x=1773302092;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-authentication-results:x-original-sender:references:to
+         :cc:in-reply-to:date:subject:mime-version:message-id:from:x-gm-gg
+         :x-beenthere:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4BLSpuuq/cPYyjlXgfx00tl4rzEI9eXg7RWNA9rlxCc=;
+        b=i0spck+JzlXkrCwYyRZ+ThpGwgUMM1wM2lnN1k7spBqpm99wUZ9rOslMt+OV6DKEep
+         5iJRdTNAq0mLfUmJOk4VtrMryOQP7GM5phpmloJk5qwan0JMZ3o05pvtzvQWPSbrEE9f
+         Lprjqpl1fbajwDsOO6KWxp+wbYD3gJxSxVIZLCaKiC43I5kyN1/FO3UOKelSy85e+Inw
+         vb8zArTw3rekW9+tH1uJZT2ZMi4JRbFEziw4oPypPQAV83cZ4rT3V9mZiKUnqDSqOAVb
+         0lTDG6lUJ9aY21rCTwipFujRTwaktujY3/7bE8oY//vHzRNu03CuWs/AX1QQWZ6LKwTJ
+         w4ww==
+X-Forwarded-Encrypted: i=2; AJvYcCWffabLUjS8gmj/Z6jZYNp2nTyL11LXacj/ffzoQa0xn9O/vyLNO25y1Q4D1RIpGOnE/0Iyn2aNR3sey5FoiF3WN7eEkJqfDQ==@finn.co.jp
+X-Gm-Message-State: AOJu0YxVo3oxC9u4OvcustP8ckV7buwKSWA58FPiu1MCqjoyUb9Zba4s
+	4HjfRlYdtoDoIFXnpOTafLQcnc+jrDaf0WxAH+x+4mdKJ880b+xfN9vl53VMQsLMf0apTLEG9aS
+	v2A==
+X-Received: by 2002:a05:6a00:2884:b0:81f:3c34:fa83 with SMTP id d2e1a72fcca58-82972d15b68mr5383748b3a.57.1772697291844;
+        Wed, 04 Mar 2026 23:54:51 -0800 (PST)
+X-BeenThere: service@finn.co.jp; h="AV1CL+FcbI8EgVfg/P7wytPQEDiJTlrjevrGWC7GgJhYjdmZZA=="
+Received: by 2002:a05:6a00:26dc:b0:81e:9ac7:26a0 with SMTP id
+ d2e1a72fcca58-82980d69e22ls551824b3a.2.-pod-prod-07-us; Wed, 04 Mar 2026
+ 23:54:51 -0800 (PST)
+X-Received: by 2002:aa7:88c3:0:b0:824:9bad:94d1 with SMTP id d2e1a72fcca58-82972ce2cbcmr4487436b3a.51.1772697290415;
+        Wed, 04 Mar 2026 23:54:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772697290; cv=none;
+        d=google.com; s=arc-20240605;
+        b=dP/kqDZW4uScx00ZQs5tFIPSXyCQb9NfJOBykTbatnReVq9iTepvp+EhkdDhkMmGZs
+         WBXdRrKhiEcMm9Vb/JGaJM2dKpKK+sR+75fybqvb1kgS9y5QG8khlH13VyAqKXihWV/a
+         qsbwk3C0oHwGWa9kVnavEeWAvltMSpsnlOb/Bi77A4lCleQgGskU+kK0sSv3I5Ztzb2i
+         VOSWnVh3wlndnZJznM63vSARU8La4vkeQJTh0pVBSyvo+ylhLMAuWPivGHhfRDo52WL1
+         1//6cFBBH6qEbgz/r5ilOCQpknWQPtUA6qsHgjoig821bQoszSjl+Ym91qEqqlSPRwVC
+         BSxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:dkim-signature;
+        bh=4BLSpuuq/cPYyjlXgfx00tl4rzEI9eXg7RWNA9rlxCc=;
+        fh=LPBZ762dk0Zxjt8DThfUfQ6BPgxKIBU4Evzq9/Y+lxE=;
+        b=VMnwxSVQoEZLqgKAq+2Od+sHJ3tMdT+FR/jgUWncIxFrA5nkyxHdvlFJv0J7Hc39KO
+         evlm1JQ4euU5uJOudYzjcNSOlCIn9JO3BZUje00Qyk/gWwpV2Sutdt56rHvts7B2nyjC
+         4UwMwQooUlxWFFDx9Mgr11s/2c3BGGsDFslT5OpJwGmDdxUmPkFwCUBzuTU7vzvRLf7w
+         iR+4gKcqxxc9LQAiai5TRcMTwUjN1t3PP3Gl4Ve+xVyc2wGOpHEMZ+j0HPqX+f9bwE7S
+         fXpM/XoWlu1888oGy21liR1JVl9dJFrMl83VmZMSwdZYDwT4wDIlO+vXoDNZkTykidos
+         3sEw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@accerise.co.jp header.s=google header.b=VCUwKyLO;
+       spf=pass (google.com: domain of takayuki.koike@accerise.co.jp designates 2607:f8b0:4864:20::52e as permitted sender) smtp.mailfrom=takayuki.koike@accerise.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=accerise.co.jp;
+       dara=neutral header.i=@finn.co.jp
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com. [2607:f8b0:4864:20::52e])
+        by mx.google.com with ESMTPS id d2e1a72fcca58-8273a46bfd8si38440249b3a.257.2026.03.04.23.54.50
+        for <service@finn.co.jp>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Mar 2026 23:54:50 -0800 (PST)
+Received-SPF: pass (google.com: domain of takayuki.koike@accerise.co.jp designates 2607:f8b0:4864:20::52e as permitted sender) client-ip=2607:f8b0:4864:20::52e;
+Received: by mail-pg1-x52e.google.com with SMTP id 41be03b00d2f7-c6e2355739dso3152474a12.2
+        for <service@finn.co.jp>; Wed, 04 Mar 2026 23:54:50 -0800 (PST)
+X-Gm-Gg: ATEYQzysy4mLdpUZsqaa5S/YT+IztiVgVh6pixYbqUYlHlXko68JPNQLHPF26cPegtF
+	APaZVYdVo2ExL2vWOMjIex0yvNbm19JGXy9bGe6GvJb6qThmZnB/4FrZngpLwshJdcLYGkzeSUP
+	7qwTZ2YraBQBWHrYa0hqtIqUDqD0hc+AYENlvdsLeA7wYTaYtuaBwudAw5HBtgrBZ2qCcmoX/Yq
+	G4ZSMSOVmllShtRDiCZga90eumZ/cy7LOXSdmZoWoYJjF1f0pnrCJkHMIkeIMU+G31o2fzivnwE
+	Jbl5NWL00DjCI5NIMVTfBpE8F95u5vpD7y+jdt6BD23hwO8EE4Qdx1Cs6p5dUqaK6OatmtpVLVx
+	nHdaD0VQfnVG3TWCyD4kqHtqCuk5IWr3bRWXTZoZ8CvzKGTGSrF/z6YuwItvZV9AUBNdohfNyDt
+	MYwuA5let3zcShq6CStNhMcy4ndmdPT9a470Zl6JiYh2iTuqeTQtCVXTJIgpD6LT2boTewRpDo9
+	0Q=
+X-Received: by 2002:a17:90b:4c48:b0:359:8256:19f9 with SMTP id 98e67ed59e1d1-359a69e4a95mr4631352a91.15.1772697289555;
+        Wed, 04 Mar 2026 23:54:49 -0800 (PST)
+Received: from smtpclient.apple (fpd2ae1e05.ap.nuro.jp. [210.174.30.5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-359b2d3922dsm1166419a91.2.2026.03.04.23.54.48
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 04 Mar 2026 23:54:49 -0800 (PST)
+From: =?utf-8?B?5bCP5rGg5bSH5LmL?= <takayuki.koike@accerise.co.jp>
+Message-Id: <5C39D46F-80D1-490C-8FE1-3FA3DB2D597F@accerise.co.jp>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_B6A65EEC-79E0-4DD8-B4D9-0EDFB52E0E11"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.400.21\))
+Subject: =?utf-8?B?UmU6IOOAkOagquW8j+S8muekvuOCouOCr+OCu+ODqeOCpOOCug==?=
+ =?utf-8?B?44CR44Ob44O844Og44Oa44O844K444KI44KK44GK5ZWP44GE5ZCI44KP44Gb?=
+ =?utf-8?B?44GM44GC44KK44G+44GZ?=
+Date: Thu, 5 Mar 2026 16:54:37 +0900
+In-Reply-To: <I9wwJwi87WnCnNdc1n0WfrezibieH615HSLRIDJ6c@accerise.co.jp>
+Cc: =?utf-8?B?44Ki44Kv44K744Op44Kk44K6U0VT5Za25qWt44OB44O844Og?= <team_ses@accerise.co.jp>
+To: service@finn.co.jp
+References: <I9wwJwi87WnCnNdc1n0WfrezibieH615HSLRIDJ6c@accerise.co.jp>
+X-Mailer: Apple Mail (2.3864.400.21)
+X-Original-Sender: takayuki.koike@accerise.co.jp
+X-Original-Authentication-Results: mx.google.com;       dkim=pass
+ header.i=@accerise.co.jp header.s=google header.b=VCUwKyLO;       spf=pass
+ (google.com: domain of takayuki.koike@accerise.co.jp designates
+ 2607:f8b0:4864:20::52e as permitted sender) smtp.mailfrom=takayuki.koike@accerise.co.jp;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=accerise.co.jp;
+       dara=neutral header.i=@finn.co.jp
+Precedence: list
+Mailing-list: list service@finn.co.jp; contact service+owners@finn.co.jp
+List-ID: <service.finn.co.jp>
+X-Spam-Checked-In-Group: service@finn.co.jp
+X-Google-Group-Id: 782758403112
+List-Post: <https://groups.google.com/a/finn.co.jp/group/service/post>, <mailto:service@finn.co.jp>
+List-Help: <https://support.google.com/a/finn.co.jp/bin/topic.py?topic=25838>, <mailto:service+help@finn.co.jp>
+List-Archive: <https://groups.google.com/a/finn.co.jp/group/service/>
+List-Subscribe: <https://groups.google.com/a/finn.co.jp/group/service/subscribe>,
+ <mailto:service+subscribe@finn.co.jp>
+List-Unsubscribe: <mailto:googlegroups-manage+782758403112+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/a/finn.co.jp/group/service/subscribe>
+
+
+--Apple-Mail=_B6A65EEC-79E0-4DD8-B4D9-0EDFB52E0E11
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+5qCq5byP5Lya56S+Zmlubg0K5LmF6YeOIOanmA0KDQrjgYrkuJboqbHjgavjgarjgorjgb7jgZnj
+gIINCuOCouOCr+OCu+ODqeOCpOOCuiDllrbmpa3jga7lsI/msaDjgafjgZnjgIINCg0K44GU6L+U
+5L+h44GC44KK44GM44Go44GG44GU44GW44GE44G+44GZ44CCDQrjgZzjgbLjgYrmiZPjgaHlkIjj
+go/jgZvjga7mqZ/kvJrjgpLpoILmiLTjgZfjgZ/jgY/lrZjjgZjjgb7jgZnjgIINCuOBpOOBjeOB
+vuOBl+OBpuOBr+OAgeS4i+iomOOBruaXpeeoi+OBp+OBlOiqv+aVtOOBhOOBn+OBoOOBkeOCjOOB
+sOW5uOOBhOOBp+OBmeOAgg0KDQrjg7szLzbvvIjph5HvvIkxMTowMOOAnDE1OjAwDQrjg7szLzEw
+77yI54Gr77yJMTQ6MDDvvZ4xODowMA0K44O7My8xMu+8iOacqO+8iTExOjAw772eMTg6MDANCg0K
+44GE44Ga44KM44KCV2Vi5Lya6K2w44Gr44Gm44CCDQrjgb7jgZ/kuIroqJjku6XlpJbjgpLjgZTl
+uIzmnJvjga7loLTlkIjjga/jgIHjgZTpgaDmha7jgarjgY/jgYrnlLPjgZfjgaTjgZHjgY/jgaDj
+gZXjgYTjgIINCg0K5Lul5LiK44Gn44GZ44CCDQrjgZTnorroqo3jga7nqIvjgojjgo3jgZfjgY/j
+gYrpoZjjgYTjgYTjgZ/jgZfjgb7jgZnjgIINCg0KPS09LT0tPS09LT0tPS09LT0tPS09LT0tPS09
+LT0tPS09LT0tPS09LQ0K5qCq5byP5Lya56S+44Ki44Kv44K744Op44Kk44K6DQrlsI/msaAg5bSH
+5LmL77yIVGFrYXl1a2kgS29pa2XvvIkNCuOAkjEwMS0wMDUyDQrmnbHkuqzpg73ljYPku6PnlLDl
+jLrnpZ7nlLDlsI/lt53nlLoxLTUtMQ0K56We55Sw5b6h5bm444OT44OrOEYNClRFTO+8iOWAi+S6
+uu+8ie+8mjA5MC05MzMwLTA0MDINClRFTO+8mjAzLTU1NzctMzE2MQ0KRkFY77yaMDMtNTU3Ny0z
+MTYyDQpNQUlM77yadGFrYXl1a2kua29pa2VAYWNjZXJpc2UuY28uanANCkhQ77yaaHR0cHM6Ly9h
+Y2NlcmlzZS5jby5qcC8NCj0tPS09LT0tPS09LT0tPS09LT0tPS09LT0tPS09LT0tPS09LT0tPS0N
+Cg0KPiAyMDI2LzAzLzA0IDEzOjMy44CB5qCq5byP5Lya56S+44Ki44Kv44K744Op44Kk44K6IDx0
+b2lhd2FzZUBhY2NlcmlzZS5jby5qcD7jga7jg6Hjg7zjg6s6DQo+IA0KPiAyMDI25bm0M+aciDTm
+l6UgMTM6MzINCj4gDQo+IOagquW8j+S8muekvuOCouOCr+OCu+ODqeOCpOOCuuOBruODm+ODvOOD
+oOODmuODvOOCuOOCiOOCig0KPiDku6XkuIvjga7jgYrllY/jgYTlkIjjgo/jgZvjgpLlj5fjgZHk
+u5jjgZHjgb7jgZfjgZ/jgIINCj4g5YaF5a6544KS44GU56K66KqN44Gu5LiK44CB44GU5a++5b+c
+44GP44Gg44GV44GE44CCDQo+IA0KPiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIANCj4gDQo+IFsg5Lya
+56S+5ZCNIF0g5qCq5byP5Lya56S+Zmlubg0KPiBbIOOBiuWQjeWJjSBdIOS5hemHjuiBoeS4gOmD
+ju+8iOOCr+ODjuOCveOCpuOCpOODgeODreOCpiDvvIkNCj4gWyDpm7voqbHnlarlj7cgXSAwOTA4
+NjMxMDUxNQ0KPiBbIOODoeODvOODq+OCouODieODrOOCuSBdIHNlcnZpY2VAZmlubi5jby5qcA0K
+PiBbIOOBiuWVj+OBhOWQiOOCj+OBm+WGheWuuSBdDQo+IOeqgeeEtuOBruOBlOmAo+e1oeWkseek
+vOOBhOOBn+OBl+OBvuOBmeOAgg0KPiDmoKrlvI/kvJrnpL5maW5u44GnQ09P44KS5YuZ44KB44Gm
+44GE44KL5LmF6YeO44Go55Sz44GX44G+44GZ44CCDQo+IOW8iuekvuOBr+OAjFR5cGVTY3JpcHTj
+gpLjga/jgZjjgoHjgajjgZfjgZ/jg6Ljg4Djg7PmioDooZPjgavnibnljJbjgZfjgZ/kvIHmpa3l
+kJHjgZHmioDooZPmlK/mj7TjgI3jgpLkuLvou7jjgavjgIFTRVPkuovmpa3jgpLlsZXplovjgZfj
+gabjgYrjgorjgb7jgZnjgIINCj4g54++5Zyo44CBV2Vi57O75oqA6KGT6aCY5Z+f44Gr44GK44GR
+44KL5Y2U5qWt44OR44O844OI44OK44O844Gu5ouh5YWF44KS6YCy44KB44Gm44GK44KK44CB6LK0
+56S+44Go5qGI5Lu244O744Ko44Oz44K444OL44Ki44Oq44K944O844K544Gu55u45LqS6YCj5pC6
+44Gu5Y+v6IO95oCn44Gr44Gk44GE44Gm5oOF5aCx5Lqk5o+b44GV44Gb44Gm44GE44Gf44Gg44GR
+44Gq44GE44GL44Go6ICD44GI44CB44GU6YCj57Wh44GE44Gf44GX44G+44GX44Gf44CCDQo+IOOC
+guOBl+OBlOmWouW/g+OCkuOBiuaMgeOBoeOBhOOBn+OBoOOBkeOBvuOBl+OBn+OCieOAgeOBvuOB
+muOBr+OCquODs+ODqeOCpOODs+OBpzMw5YiG44G744Gp44GK5omT44Gh5ZCI44KP44Gb44Gu5aC0
+44KS6aCC5oi044Gn44GN44KM44Gw5bm444GE44Gn44GZ44CCDQo+IOOBlOmDveWQiOOBruOCiOOB
+hOWAmeijnOaXpeOCkuOBhOOBj+OBpOOBi+OBiuefpeOCieOBm+OBhOOBn+OBoOOBkeOBvuOBmeOB
+qOW5uOOBhOOBp+OBmeOAgg0KPiDkvZXljZLjgojjgo3jgZfjgY/jgYrpoZjjgYTjgYTjgZ/jgZfj
+gb7jgZnjgIINCj4gDQo+IOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgA0KPiANCj4g5qCq5byP5Lya56S+
+44Ki44Kv44K744Op44Kk44K6DQo+IGh0dHBzOi8vYWNjZXJpc2UuY28uanAvDQo+IA0KDQo=
+--Apple-Mail=_B6A65EEC-79E0-4DD8-B4D9-0EDFB52E0E11
+Content-Transfer-Encoding: base64
+Content-Type: text/html;
+	charset=utf-8
+
+PGh0bWwgYXJpYS1sYWJlbD0ibWVzc2FnZSBib2R5Ij48aGVhZD48bWV0YSBodHRwLWVxdWl2PSJj
+b250ZW50LXR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD11dGYtOCI+PC9oZWFkPjxi
+b2R5IHN0eWxlPSJvdmVyZmxvdy13cmFwOiBicmVhay13b3JkOyAtd2Via2l0LW5ic3AtbW9kZTog
+c3BhY2U7IGxpbmUtYnJlYWs6IGFmdGVyLXdoaXRlLXNwYWNlOyI+PGRpdj7moKrlvI/kvJrnpL5m
+aW5uPC9kaXY+PGRpdj7kuYXph44g5qeYPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj7jgYrkuJbo
+qbHjgavjgarjgorjgb7jgZnjgII8L2Rpdj48ZGl2PuOCouOCr+OCu+ODqeOCpOOCuiDllrbmpa3j
+ga7lsI/msaDjgafjgZnjgII8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PuOBlOi/lOS/oeOBguOC
+iuOBjOOBqOOBhuOBlOOBluOBhOOBvuOBmeOAgjwvZGl2PjxkaXY+44Gc44Gy44GK5omT44Gh5ZCI
+44KP44Gb44Gu5qmf5Lya44KS6aCC5oi044GX44Gf44GP5a2Y44GY44G+44GZ44CCPC9kaXY+PGRp
+dj7jgaTjgY3jgb7jgZfjgabjga/jgIHkuIvoqJjjga7ml6XnqIvjgafjgZToqr/mlbTjgYTjgZ/j
+gaDjgZHjgozjgbDlubjjgYTjgafjgZnjgII8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PuODuzMv
+Nu+8iOmHke+8iTExOjAw44CcMTU6MDA8L2Rpdj48ZGl2PuODuzMvMTDvvIjngavvvIkxNDowMO+9
+njE4OjAwPC9kaXY+PGRpdj7jg7szLzEy77yI5pyo77yJMTE6MDDvvZ4xODowMDwvZGl2PjxkaXY+
+PGJyPjwvZGl2PjxkaXY+44GE44Ga44KM44KCV2Vi5Lya6K2w44Gr44Gm44CCPC9kaXY+PGRpdj7j
+gb7jgZ/kuIroqJjku6XlpJbjgpLjgZTluIzmnJvjga7loLTlkIjjga/jgIHjgZTpgaDmha7jgarj
+gY/jgYrnlLPjgZfjgaTjgZHjgY/jgaDjgZXjgYTjgII8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2
+PuS7peS4iuOBp+OBmeOAgjwvZGl2PjxkaXY+44GU56K66KqN44Gu56iL44KI44KN44GX44GP44GK
+6aGY44GE44GE44Gf44GX44G+44GZ44CCPC9kaXY+PGRpdj4NCjxtZXRhIGNoYXJzZXQ9IlVURi04
+Ij48ZGl2IHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBjb2xvcjogcmdiKDAsIDAs
+IDApOyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEycHg7IGZvbnQtc3R5bGU6
+IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IDQwMDsgbGV0
+dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7
+IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6
+IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5v
+bmU7Ij48YnIgY2xhc3M9IkFwcGxlLWludGVyY2hhbmdlLW5ld2xpbmUiPj0tPS09LT0tPS09LT0t
+PS09LT0tPS09LT0tPS09LT0tPS09LT0tPS08YnI+5qCq5byP5Lya56S+44Ki44Kv44K744Op44Kk
+44K6PGJyPuWwj+axoCDltIfkuYvvvIhUYWtheXVraSBLb2lrZe+8iTxicj7jgJIxMDEtMDA1Mjxi
+cj7mnbHkuqzpg73ljYPku6PnlLDljLrnpZ7nlLDlsI/lt53nlLoxLTUtMTxicj7npZ7nlLDlvqHl
+ubjjg5Pjg6s4Rjxicj5URUzvvIjlgIvkurrvvInvvJowOTAtOTMzMC0wNDAyPGJyPlRFTO+8mjAz
+LTU1NzctMzE2MTxicj5GQVjvvJowMy01NTc3LTMxNjI8YnI+TUFJTO+8mnRha2F5dWtpLmtvaWtl
+QGFjY2VyaXNlLmNvLmpwPGJyPkhQ77yaaHR0cHM6Ly9hY2NlcmlzZS5jby5qcC88YnI+PS09LT0t
+PS09LT0tPS09LT0tPS09LT0tPS09LT0tPS09LT0tPS09LTwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pjxi
+cj48YmxvY2txdW90ZSB0eXBlPSJjaXRlIj48ZGl2PjIwMjYvMDMvMDQgMTM6MzLjgIHmoKrlvI/k
+vJrnpL7jgqLjgq/jgrvjg6njgqTjgrogJmx0O3RvaWF3YXNlQGFjY2VyaXNlLmNvLmpwJmd0O+OB
+ruODoeODvOODqzo8L2Rpdj48YnIgY2xhc3M9IkFwcGxlLWludGVyY2hhbmdlLW5ld2xpbmUiPjxk
+aXY+PGRpdj4yMDI25bm0M+aciDTml6UgMTM6MzI8YnI+PGJyPuagquW8j+S8muekvuOCouOCr+OC
+u+ODqeOCpOOCuuOBruODm+ODvOODoOODmuODvOOCuOOCiOOCijxicj7ku6XkuIvjga7jgYrllY/j
+gYTlkIjjgo/jgZvjgpLlj5fjgZHku5jjgZHjgb7jgZfjgZ/jgII8YnI+5YaF5a6544KS44GU56K6
+6KqN44Gu5LiK44CB44GU5a++5b+c44GP44Gg44GV44GE44CCPGJyPjxicj7ilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIA8YnI+PGJyPlsg5Lya56S+5ZCNIF0g5qCq5byP5Lya56S+Zmlubjxicj5bIOOBiuWQ
+jeWJjSBdIOS5hemHjuiBoeS4gOmDju+8iOOCr+ODjuOCveOCpuOCpOODgeODreOCpiDvvIk8YnI+
+WyDpm7voqbHnlarlj7cgXSAwOTA4NjMxMDUxNTxicj5bIOODoeODvOODq+OCouODieODrOOCuSBd
+IHNlcnZpY2VAZmlubi5jby5qcDxicj5bIOOBiuWVj+OBhOWQiOOCj+OBm+WGheWuuSBdPGJyPueq
+geeEtuOBruOBlOmAo+e1oeWkseekvOOBhOOBn+OBl+OBvuOBmeOAgjxicj7moKrlvI/kvJrnpL5m
+aW5u44GnQ09P44KS5YuZ44KB44Gm44GE44KL5LmF6YeO44Go55Sz44GX44G+44GZ44CCPGJyPuW8
+iuekvuOBr+OAjFR5cGVTY3JpcHTjgpLjga/jgZjjgoHjgajjgZfjgZ/jg6Ljg4Djg7PmioDooZPj
+gavnibnljJbjgZfjgZ/kvIHmpa3lkJHjgZHmioDooZPmlK/mj7TjgI3jgpLkuLvou7jjgavjgIFT
+RVPkuovmpa3jgpLlsZXplovjgZfjgabjgYrjgorjgb7jgZnjgII8YnI+54++5Zyo44CBV2Vi57O7
+5oqA6KGT6aCY5Z+f44Gr44GK44GR44KL5Y2U5qWt44OR44O844OI44OK44O844Gu5ouh5YWF44KS
+6YCy44KB44Gm44GK44KK44CB6LK056S+44Go5qGI5Lu244O744Ko44Oz44K444OL44Ki44Oq44K9
+44O844K544Gu55u45LqS6YCj5pC644Gu5Y+v6IO95oCn44Gr44Gk44GE44Gm5oOF5aCx5Lqk5o+b
+44GV44Gb44Gm44GE44Gf44Gg44GR44Gq44GE44GL44Go6ICD44GI44CB44GU6YCj57Wh44GE44Gf
+44GX44G+44GX44Gf44CCPGJyPuOCguOBl+OBlOmWouW/g+OCkuOBiuaMgeOBoeOBhOOBn+OBoOOB
+keOBvuOBl+OBn+OCieOAgeOBvuOBmuOBr+OCquODs+ODqeOCpOODs+OBpzMw5YiG44G744Gp44GK
+5omT44Gh5ZCI44KP44Gb44Gu5aC044KS6aCC5oi044Gn44GN44KM44Gw5bm444GE44Gn44GZ44CC
+PGJyPuOBlOmDveWQiOOBruOCiOOBhOWAmeijnOaXpeOCkuOBhOOBj+OBpOOBi+OBiuefpeOCieOB
+m+OBhOOBn+OBoOOBkeOBvuOBmeOBqOW5uOOBhOOBp+OBmeOAgjxicj7kvZXljZLjgojjgo3jgZfj
+gY/jgYrpoZjjgYTjgYTjgZ/jgZfjgb7jgZnjgII8YnI+PGJyPuKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gDxicj48YnI+5qCq5byP5Lya56S+44Ki44Kv44K744Op44Kk44K6PGJyPmh0dHBzOi8vYWNjZXJp
+c2UuY28uanAvPGJyPjxicj48L2Rpdj48L2Rpdj48L2Jsb2NrcXVvdGU+PC9kaXY+PGJyPjwvYm9k
+eT48L2h0bWw+
+--Apple-Mail=_B6A65EEC-79E0-4DD8-B4D9-0EDFB52E0E11--
