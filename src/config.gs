@@ -23,9 +23,6 @@ const CONFIG = {
   LABEL_SOURCE: '_filtered/processed',
   LABEL_BP_UNREPLIED: '_filtered/bp_unreplied',
 
-  // Gmail REST API
-  GMAIL_API_BASE: 'https://www.googleapis.com/gmail/v1/users/me',
-
   // 自社ドメイン（これらからの返信があれば「返信済み」とみなす）
   COMPANY_DOMAINS: ['finn.co.jp', 'ex.finn.co.jp'],
 

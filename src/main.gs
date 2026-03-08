@@ -43,7 +43,7 @@ function processEmails() {
 
     try {
       // メール詳細取得
-      const detail = getMessageDetail(msg.id);
+      const detail = getMessageDetail(msg.gmailMessage);
       console.log(`処理中 ${i + 1}/${total}: ${detail.from} - ${detail.subject}`);
 
       // Gemini で BP 分類
@@ -54,7 +54,7 @@ function processEmails() {
         const replied = hasCompanyReply(msg.threadId);
 
         // 全ケースで bp_unreplied ラベルを付与（再処理防止）
-        addLabel(msg.id, CONFIG.LABEL_BP_UNREPLIED);
+        addLabel(msg.gmailThread, CONFIG.LABEL_BP_UNREPLIED);
 
         if (!replied) {
           // 未返信 → リストに追加
@@ -68,7 +68,7 @@ function processEmails() {
         }
       } else {
         // 非 BP → bp_unreplied ラベルを付けて再処理防止
-        addLabel(msg.id, CONFIG.LABEL_BP_UNREPLIED);
+        addLabel(msg.gmailThread, CONFIG.LABEL_BP_UNREPLIED);
         console.log(`  → 非BP (confidence: ${classification.confidence}): スキップ`);
       }
 
