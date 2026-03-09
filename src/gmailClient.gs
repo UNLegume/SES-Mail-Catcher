@@ -13,12 +13,12 @@ const labelCache_ = {};
  * @returns {string} Gmail 検索クエリ
  */
 function buildSearchQuery_() {
-  return `label:${CONFIG.LABEL_SOURCE} -label:${CONFIG.LABEL_BP_UNREPLIED} newer_than:1d`;
+  return `label:${CONFIG.LABEL_SOURCE} -label:${CONFIG.LABEL_BP_UNREPLIED} newer_than:7d`;
 }
 
 /**
  * 対象メールのメッセージ情報一覧を取得する
- * label:_filtered/processed かつ label:_filtered/bp_unreplied が付いていない、直近1日のメール
+ * label:_filtered/processed かつ label:_filtered/bp_unreplied が付いていない、直近7日のメール
  * @returns {{ id: string, threadId: string, gmailMessage: GmailApp.GmailMessage, gmailThread: GmailApp.GmailThread }[]} メッセージ情報の配列
  */
 function getTargetMessages() {
