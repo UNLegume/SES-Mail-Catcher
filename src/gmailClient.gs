@@ -13,7 +13,7 @@ const labelCache_ = {};
  * @returns {string} Gmail 検索クエリ
  */
 function buildSearchQuery_() {
-  return `label:${CONFIG.LABEL_SOURCE} -label:${CONFIG.LABEL_BP_UNREPLIED} newer_than:7d`;
+  return `label:${CONFIG.LABEL_SOURCE} -label:${CONFIG.LABEL_BP_UNREPLIED} -label:${CONFIG.LABEL_BLOCKED} newer_than:7d`;
 }
 
 /**

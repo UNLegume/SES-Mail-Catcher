@@ -22,6 +22,7 @@ const CONFIG = {
   // Gmail ラベル
   LABEL_SOURCE: '_filtered/processed',
   LABEL_BP_UNREPLIED: '_filtered/bp_unreplied',
+  LABEL_BLOCKED: '_filtered/blocked',
 
   // 自社ドメイン（これらからの返信があれば「返信済み」とみなす）
   COMPANY_DOMAINS: ['finn.co.jp', 'ex.finn.co.jp'],

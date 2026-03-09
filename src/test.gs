@@ -98,7 +98,7 @@ function test_buildSearchQuery() {
   assertEqual_(
     'search query',
     query,
-    'label:_filtered/processed -label:_filtered/bp_unreplied newer_than:1d'
+    'label:_filtered/processed -label:_filtered/bp_unreplied -label:_filtered/blocked newer_than:7d'
   );
 }
 
