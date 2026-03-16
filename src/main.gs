@@ -16,6 +16,7 @@ function processEmails() {
 
   // ラベルの存在を確認・作成
   ensureLabelExists(CONFIG.LABEL_BP_UNREPLIED);
+  ensureLabelExists(CONFIG.LABEL_BP_SLACK_NOTIFIED);
 
   // 対象メール取得
   const messages = getTargetMessages();
@@ -30,6 +31,9 @@ function processEmails() {
 
   const unrepliedList = [];
   let processedCount = 0;
+  let preFilterBPCount = 0;
+  let preFilterNotBPCount = 0;
+  let geminiCount = 0;
 
   for (let i = 0; i < total; i++) {
     // 実行時間チェック
@@ -40,35 +44,45 @@ function processEmails() {
     }
 
     const msg = messages[i];
+    let usedGemini = false;
 
     try {
       // メール詳細取得
       const detail = getMessageDetail(msg.gmailMessage);
       console.log(`処理中 ${i + 1}/${total}: ${detail.from} - ${detail.subject}`);
 
-      // Gemini で BP 分類
-      const classification = classifyEmailAsBP(detail.subject, detail.body, detail.from, startTime);
+      // プリフィルター + Gemini 分類
+      let classification;
+
+      if (CONFIG.PRE_FILTER_ENABLED) {
+        const pf = preFilterEmail(detail.subject, detail.body, detail.from);
+        if (pf.verdict === PRE_FILTER_VERDICT.CLEAR_NOT_BP) {
+          classification = { is_bp: false, confidence: 0.0, reason: 'プリフィルタ: ' + pf.reason };
+          preFilterNotBPCount++;
+          console.log(`  → プリフィルタ: 非BP [${pf.rule}]`);
+        } else if (pf.verdict === PRE_FILTER_VERDICT.CLEAR_BP) {
+          classification = { is_bp: true, confidence: 1.0, reason: 'プリフィルタ: ' + pf.reason };
+          preFilterBPCount++;
+          console.log(`  → プリフィルタ: BP [${pf.rule}]`);
+        }
+      }
+
+      if (!classification) {
+        classification = classifyEmailAsBP(detail.subject, detail.body, detail.from, startTime);
+        usedGemini = true;
+        geminiCount++;
+      }
 
       if (classification.is_bp && classification.confidence >= CONFIG.BP_CONFIDENCE_THRESHOLD) {
-        // BP メール → 返信チェック
         const replied = hasCompanyReply(msg.threadId);
-
-        // 全ケースで bp_unreplied ラベルを付与（再処理防止）
-        addLabel(msg.gmailThread, CONFIG.LABEL_BP_UNREPLIED);
-
         if (!replied) {
-          // 未返信 → リストに追加
-          unrepliedList.push({
-            from: detail.from,
-            subject: detail.subject,
-          });
+          addLabel(msg.gmailThread, CONFIG.LABEL_BP_UNREPLIED);
+          unrepliedList.push({ from: detail.from, subject: detail.subject, gmailThread: msg.gmailThread });
           console.log(`  → BP未返信: ラベル付与`);
         } else {
           console.log(`  → BP返信済み: スキップ`);
         }
       } else {
-        // 非 BP → bp_unreplied ラベルを付けて再処理防止
-        addLabel(msg.gmailThread, CONFIG.LABEL_BP_UNREPLIED);
         console.log(`  → 非BP (confidence: ${classification.confidence}): スキップ`);
       }
 
@@ -77,16 +91,28 @@ function processEmails() {
       console.error(`メッセージ処理エラー (id: ${msg.id}):`, e.message);
     }
 
-    // レート制限対策
-    Utilities.sleep(CONFIG.API_CALL_DELAY_MS);
+    // Gemini 呼び出し時のみ sleep（プリフィルタ判定時は不要）
+    if (usedGemini) {
+      Utilities.sleep(CONFIG.API_CALL_DELAY_MS);
+    }
   }
 
   // サマリーログ
   const totalElapsed = Math.round((Date.now() - startTime) / 1000);
   console.log(`=== 処理完了: ${processedCount}/${total} 件処理, 未返信 BP: ${unrepliedList.length} 件, 所要時間: ${totalElapsed}秒 ===`);
+  console.log(`  プリフィルタBP: ${preFilterBPCount} 件, プリフィルタ非BP: ${preFilterNotBPCount} 件, Gemini判定: ${geminiCount} 件`);
 
   // Slack 通知
-  sendBPUnrepliedNotification(unrepliedList, processedCount);
+  if (sendBPUnrepliedNotification(unrepliedList, processedCount)) {
+    // 通知成功時にラベル付与
+    for (const entry of unrepliedList) {
+      try {
+        addLabel(entry.gmailThread, CONFIG.LABEL_BP_SLACK_NOTIFIED);
+      } catch (e) {
+        console.error(`Slack通知済みラベル付与エラー: ${e.message}`);
+      }
+    }
+  }
 }
 
 /**
@@ -111,6 +137,12 @@ function initialize() {
   try {
     ensureLabelExists(CONFIG.LABEL_BP_UNREPLIED);
     console.log(`✓ ラベル "${CONFIG.LABEL_BP_UNREPLIED}": 準備完了`);
+  } catch (e) {
+    console.error(`✗ ラベル作成失敗: ${e.message}`);
+  }
+  try {
+    ensureLabelExists(CONFIG.LABEL_BP_SLACK_NOTIFIED);
+    console.log(`✓ ラベル "${CONFIG.LABEL_BP_SLACK_NOTIFIED}": 準備完了`);
   } catch (e) {
     console.error(`✗ ラベル作成失敗: ${e.message}`);
   }

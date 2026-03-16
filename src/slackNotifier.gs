@@ -47,6 +47,7 @@ function buildNotificationMessage(unrepliedList, processedCount) {
  * BP 未返信メールの通知を Slack に送信する
  * @param {{ from: string, subject: string }[]} unrepliedList - 未返信メール情報の配列
  * @param {number} processedCount - 処理した総件数
+ * @returns {boolean} 通知成功時 true、失敗時 false
  */
 function sendBPUnrepliedNotification(unrepliedList, processedCount) {
   try {
@@ -65,10 +66,12 @@ function sendBPUnrepliedNotification(unrepliedList, processedCount) {
 
     if (responseCode !== 200) {
       console.error(`Slack 通知失敗 (HTTP ${responseCode}): ${response.getContentText()}`);
-    } else {
-      console.log('Slack 通知送信完了');
+      return false;
     }
+    console.log('Slack 通知送信完了');
+    return true;
   } catch (e) {
     console.error('Slack 通知エラー:', e.message);
+    return false;
   }
 }

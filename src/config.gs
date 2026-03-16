@@ -22,6 +22,7 @@ const CONFIG = {
   // Gmail ラベル
   LABEL_SOURCE: '_filtered/processed',
   LABEL_BP_UNREPLIED: '_filtered/bp_unreplied',
+  LABEL_BP_SLACK_NOTIFIED: '_filtered/bp_slack_notified',
   LABEL_BLOCKED: '_filtered/blocked',
 
   // 自社ドメイン（これらからの返信があれば「返信済み」とみなす）
@@ -29,6 +30,19 @@ const CONFIG = {
 
   // BP 判定閾値
   BP_CONFIDENCE_THRESHOLD: 0.6,
+
+  // プリフィルター設定
+  PRE_FILTER_ENABLED: true,  // false で即時ロールバック可能
+
+  SERVICE_DOMAINS: [
+    'amazonaws.com', 'amazon.com', 'google.com', 'googlemail.com',
+    'slack.com', 'github.com', 'atlassian.com', 'zoom.us',
+    'microsoft.com', 'office365.com', 'backlog.com', 'chatwork.com',
+  ],
+
+  NOREPLY_PREFIXES: [
+    'noreply@', 'no-reply@', 'mailer-daemon@', 'postmaster@',
+  ],
 };
 
 /**
